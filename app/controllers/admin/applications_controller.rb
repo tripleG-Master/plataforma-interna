@@ -3,11 +3,20 @@ class Admin::ApplicationsController < ApplicationController
     before_action :set_application, only: %i[destroy]
 
     def index
-        if params[:filter] == 'new'
-            @applications = Application.where(status_new: true).order(:created_at)
-        else
-            @applications = Application.all.order(:created_at)
-        end
+        # Inicializa la colección de aplicaciones
+        @applications = Application.all
+
+        # Filtra por user_id si se proporciona
+        @applications = @applications.where(user_id: params[:user_id]) if params[:user_id].present?
+            
+        # Filtra por estado si se proporciona
+        @applications = @applications.where(status_new: true) if params[:filter] == 'new'
+            
+        # Ordena las aplicaciones por fecha de creación
+        @applications = @applications.order(:created_at)
+
+        # Para depuración, puedes imprimir las aplicaciones
+        Rails.logger.info "\n\n\n applies: #{@applications.pluck(:id)} \n\n\n"
     end
 
     def destroy

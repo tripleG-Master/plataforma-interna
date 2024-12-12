@@ -32,6 +32,9 @@
                     <p class="card-text">
                         Bio: <%= @user.bio %>
                     </p> 
+                    <p class="card-text">
+                        <%= link_to "Applies", admin_user_applications_path(@user), class:"btn btn-outline-primary"%>
+                    </p> 
                 </div>
                 <div class="card-footer bg-white">
                     <div class="d-flex justify-content-center gap-2">

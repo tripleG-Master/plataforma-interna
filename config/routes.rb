@@ -11,14 +11,22 @@ Rails.application.routes.draw do
     path_names: { sign_in: 'sign_in'}
 
   namespace :admin do 
+
     get 'dashboard', to: 'dashboard#index' # Ruta para el dashboard
-    resources :users
+    
+    resources :users do
+      resources :applications, only: [:index],
+        controller: 'applications'
+    end
+    
     resources :joboffers
     resources :applications, only: %i[index show destroy] do
       member do
         patch :update_status
       end
     end
+  
+  
   end
 
   resources :joboffers, only: [:index, :show] do

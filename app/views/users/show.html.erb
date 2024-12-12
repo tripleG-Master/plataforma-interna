@@ -1,4 +1,6 @@
-<%= render 'shared/h1_title', title:"My Profile" %>
+<%= content_for :title, "My Profile"%>
+<%= render 'shared/h1_title', title:"#{@user.name || @user.email}" %>
+
 
 <section class="container-fluid">
     <div class="card col-10 col-md-6 mx-auto">
