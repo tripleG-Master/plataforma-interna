@@ -1,9 +1,21 @@
+
 <% if request.path == admin_applications_path %>
-  <%= render "shared/h1_title", title: "All Applications" %>
+  <%= render "shared/h1_title", title: "Admin all applications" %>
+
 <% elsif request.path == admin_user_applications_path %>
-  <%= render "shared/h1_title", title: "Admin #{@applications.sample.user.name} Applications" %>
+
+  <%= render "shared/h1_title", 
+    title: if @applications.any?
+              user_name = @applications.sample.user&.name
+              user_email = @applications.sample.user&.email
+              "#{ user_name || user_email } Applications"
+            else
+              ""
+            end
+    %>
+
 <% else %>
-  <%= render "shared/h1_title", title: "Applications" %>
+  <%= render "shared/h1_title", title: "All Applications" %>
 <% end %>
 
 
@@ -26,6 +38,7 @@
 
 <section class="container-fluid px-3"> 
 
+  <% if @applications.present? %>
     <% @applications.each do |application| %>
         <%#= link_to admin_application_path(application) do %>
             <div class="row border-bottom mb-3"
@@ -47,6 +60,13 @@
             </div>
         <%# end %>
     <%end%>
+  <%else%>
+    <div class="row border-bottom mb-3">
+      <div class="col-12 text-center my-3">
+        <span class="display-6">No applications found.</span> 
+      <div>
+    <div>
+  <%end%>
 
 </section>
 

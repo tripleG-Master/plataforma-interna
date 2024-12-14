@@ -8,13 +8,14 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 require 'open-uri'
-# Sanity
-
 
 User.destroy_all
 Joboffer.destroy_all
+Application.destroy_all
 
 # Admin seeds
+# Modify this email with yours}
+# This will send an invitation email to become the admin user.
 
 email_admin = "gcarlos.gabriel4@gmail.com"
 
