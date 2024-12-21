@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   
-  
   devise_for :users, 
   controllers: {
     registrations: "users/registrations",
@@ -25,7 +24,6 @@ Rails.application.routes.draw do
         patch :update_status
       end
     end
-    
     
   end
   

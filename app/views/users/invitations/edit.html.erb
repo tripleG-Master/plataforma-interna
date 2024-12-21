@@ -1,11 +1,13 @@
 
-<h2 class="display-3 text-center my-3">Finish your registration</h2>
+<%= render "shared/h1_title", title: "Finish your registration"%>
 
 <div class="d-flex justify-content-center">
-  <div class="card col-10 col-md-6 p-5">
+  <div class="card col-10 col-md-6 p-3">
     <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put }) do |f| %>
       <%= render "users/shared/error_messages", resource: resource %>
       <%= f.hidden_field :invitation_token, readonly: true %>
+      
+      <h2 class="display-6 text-center my-3"><%= resource.email%> </h2>
 
         <div class="mb-3">
           <%= f.label :name, class:"form-label" %><br />
@@ -25,13 +27,9 @@
 
       <% end %>
 
-
-      <div class="mt-3">
+      <div class="my-3">
         <%= f.submit "Finish registration", class: "btn btn-primary" %>
       </div>
-
-
-
 
     <% end %>
   </div>

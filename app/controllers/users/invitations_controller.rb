@@ -1,26 +1,23 @@
 class Users::InvitationsController < Devise::InvitationsController
     
-    before_action :check_user_existence, only: [:create]
+     before_action :check_user_existence, only: [:create]
 
-    def create
-        # Busca al usuario por el correo electrónico proporcionado
+     def create
         Rails.logger.debug "Params: #{params.inspect}"
         email = params[:user][:email].to_s
         user = User.find_by(email: invite_params[:email])
-        puts "EMAIL: #{email}"
-        
-    
+      
         if user.present?
-            # Si el usuario ya está registrado, muestra un mensaje de alerta
-            flash[:alert] = "El usuario con el correo #{user.email} ya está registrado."
-            redirect_to admin_dashboard_path and return
+          flash[:alert] = "El usuario con el correo #{user.email} ya está registrado."
+          redirect_to admin_dashboard_path and return
         else
-            # Si el usuario no está registrado, llama al método original para enviar la invitación
-            super do
-                flash[:notice] = "Invitación enviada exitosamente."
-            end
+          # Si el usuario no está registrado, llama al método original para enviar la invitación
+          super do |resource|
+            flash[:notice] = "Invitación enviada exitosamente."
+          end
         end
-    end
+      end
+
     
     def resend_invitation
         user = User.find(params[:id])
@@ -45,6 +42,12 @@ class Users::InvitationsController < Devise::InvitationsController
             flash[:alert] = "El usuario ya está registrado y ha aceptado la invitación."
             redirect_to root_path and return
         end
+    end
+
+    private
+
+    def invite_params
+        params.require(:user).permit(:email, :password, :password_confirmation)
     end
 
 end

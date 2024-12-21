@@ -56,7 +56,7 @@ Para instalar y ejecutar la aplicación, sigue estos pasos:
 7. **Poblamos la base de datos con datos de prueba**
     rails db:seed
     *IMPORTANTE*
-    Cambia dentro del archivo seed el email de administrador, por tu email, para que recibas la invitaciín a registrarte y disfrutes de todos los permisos.
+    Cambia dentro del archivo seed el email de administrador por tu email, o uno que quieras utilizar.
 
 8. **Iniciamos el servidor**
     rails s
@@ -68,6 +68,8 @@ Para instalar y ejecutar la aplicación, sigue estos pasos:
 ## Permisos y Roles
 - **Administrados**: Pueden crear, editar y eliminar ofertas de trabajo, así como gestionar usuarios y las aplicaciones a loas ofertas laborales.
 - **Empleados**: Pueden ver ofertas de trabajo y postularse a ellas.
+- **CABE DESTACAR**
+- Las contraseñas generadas en la seed para users es "123456". Puedes utilizar cualquiera de los email generados y con la misma contraseña entrar con su perfil para realizar pruebas de usuario.
 
 
 ## Rutas públicas

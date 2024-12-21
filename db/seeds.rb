@@ -7,25 +7,39 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
 require 'open-uri'
 
 User.destroy_all
 Joboffer.destroy_all
-Application.destroy_all
+#Application.destroy_all
 
 # Admin seeds
-# Modify this email with yours}
-# This will send an invitation email to become the admin user.
+puts "\n\n\n :: Iniciando Seeds.rb :: \n"
 
-email_admin = "gcarlos.gabriel4@gmail.com"
+admin_email = "admin@mail.com"
+admin_password= "123456789"
 
-User.invite!(email: email_admin ) do |u|
-  u.skip_invitation = false # Ensure the invitation is sent
+admin = User.new(
+  email: admin_email,
+  password: admin_password,
+  password_confirmation: admin_password,
+  admin: true,
+  created_at: Time.now(), 
+  updated_at: Time.now(),
+  confirmed_at: Time.now(),
+)
+admin.save! 
+puts ":: ADMIN created :: \n"
+
+=begin 
+if User.invite!(email: admin_email )
+  puts "Usuario #{user.name} creado exitosamente."
+else
+  puts "Error al crear el usuario: #{user.errors.full_messages.join(", ")}"
 end
-admin = User.first
-admin[:admin] = true
-admin.save!
-puts "Admin invited"
+=end
+
 
 # Users seeds
 
@@ -45,6 +59,7 @@ puts "Admin invited"
     domain: "mail.com",
   )
   password = "123456"
+  
   user =  User.new(
     name: full_name,
     email: email,
@@ -56,20 +71,16 @@ puts "Admin invited"
     updated_at: Time.now(),
     confirmed_at: Time.now(),
   )
-  
   profile_picture_url = Faker::LoremFlickr.image(size: "300x300", search_terms: ['cats','dogs'])
   user.profile_picture.attach(io: URI.open(profile_picture_url), filename: 'profile.jpg', content_type: 'image/jpeg')
 
   #puts user.inspect
 
-  if user.save!
-    puts "Usuario #{user.name} creado exitosamente."
-  else
-    puts "Error al crear el usuario: #{user.errors.full_messages.join(", ")}"
-  end
+  user.save!
   
 end
 
+puts ":: Users created :: \n"
 
 # Joboffer seeds
 joboffers_data = [
@@ -127,6 +138,9 @@ joboffers_data.each do |job|
   Joboffer.create!(job)
 end
 
+
+
+puts ":: JobOffers created :: \n"
 # Application seeds
 
 joboffers = Joboffer.all
@@ -147,6 +161,7 @@ joboffers.each do |job|
 end
 
 
+puts ":: Applications created :: \n"
 
 
 

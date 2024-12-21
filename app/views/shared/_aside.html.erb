@@ -8,14 +8,17 @@
                 <p class="card-text">
                     <%= link_to "My profile", current_user.admin == true ? admin_user_path(current_user) : user_path(current_user),class:"btn btn-outline-primary" %>
                     <%unless current_user&.admin?%>
+                        <ul class="list-group list-group-flush">
                         <% if current_user&.applications.present? %>
                             My applies:<%= current_user&.applications.count %>    
-                            <ul class="list-group list-group-flush">
+                            
+                            <li class="list-item ">
                                 <%= link_to "My applies", user_applications_path(current_user), class:"btn btn-outline-primary"%>
-                            </ul>    
-                        <%else%>
-                            No applies
-                        <%end%>
+                            </li>
+                            <%else%>
+                                No applies
+                            <%end%>
+                        </ul>    
                     <%end%>
                 </p>
             </div>
